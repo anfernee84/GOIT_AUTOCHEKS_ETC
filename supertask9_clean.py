@@ -40,12 +40,12 @@ def congratulate(guys: list):
     
     print("Now we will congratulate next guys: \n")  
     for i in sorted(btday_now.items()):
-        borned = "; ".join(i[1])
+        borned = ", ".join(i[1])
         print(f"{week[i[0]]}: {borned}")
     
     print("\nNext week we will congratulate next guys: \n")
     for i in sorted(btday_then.items()):
-        borned = "; ".join(i[1])
+        borned = ", ".join(i[1])
         print(f"{week[i[0]]}: {borned}")
 
 
