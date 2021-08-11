@@ -1,0 +1,32 @@
+class Contacts:
+    current_id = 1
+
+    def __init__(self):
+        self.contacts = []
+
+    def list_contacts(self):
+        return self.contacts
+
+    def add_contacts(self, name, phone, email, favorite):
+        self.contacts.append(
+            {
+                "id": Contacts.current_id,
+                "name": name,
+                "phone": phone,
+                "email": email,
+                "favorite": favorite,
+            }
+        )
+        Contacts.current_id += 1
+
+    def get_contact_by_id(self, id):
+        # for i in filter(lambda x: x["id"] == id, self.contacts):
+        #     return i
+        a = filter(lambda person: person['id'] == id, self.contacts)
+        for i in a:
+            if i == id:
+                continue
+        return i
+
+        
+   
