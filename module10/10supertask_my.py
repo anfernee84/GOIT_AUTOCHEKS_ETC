@@ -6,9 +6,10 @@ class Field:
     def checknum(data:list):
         for item in data:
             phonenum = re.search(r'\+?380\d+|0\d+', item)
-            if phonenum and len(item) != len(phonenum.group()):
-                print (f"Number {phonenum} is not correct. Try again...")
-                return None
+            if phonenum:
+                if len(item) != len(phonenum.group()):
+                    print (f"Number {phonenum} is not correct. Try again...")
+                    return []
             else:
                 email = re.search(r'[a-zA-Z\.-]+@[\w\.-]+', item)
                 if not email:
@@ -20,9 +21,19 @@ class Field:
     def checkname(name:str):
         if name.isalpha():
             return name
-        print(f"{name} is not a name. Enter correct name...")
+        print('Enter correct name')
         return None
 
+
+
+
+class Phone(Field):
+
+    def __init__(self, phonenum:list):
+        self.phonenum = Field.checknum(phonenum)
+
+    def __str__(self):    
+        return f"{self.phonenum}"
 
 class Name(Field):
     def __init__(self,name):
@@ -31,13 +42,6 @@ class Name(Field):
     def __str__(self):   
         return f"{self.name}"
 
-
-class Phone(Field):
-    def __init__(self, phonenum:list):
-        self.phonenum = Field.checkname(phonenum)
-
-    def __str__(self):    
-        return f"{self.phonenum}"
 
 
 class Record:
@@ -84,5 +88,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
