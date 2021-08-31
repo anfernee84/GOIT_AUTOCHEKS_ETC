@@ -33,6 +33,8 @@ def note_search(notes):
             ratio = int(difflib.SequenceMatcher(None, str(searchstring), str(j)).ratio()*100)
             if ratio == 100 and len(j) == len(searchstring):
                 return(note)
+            else:
+                return f"No such note"
 
        
 
