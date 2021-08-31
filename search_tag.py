@@ -34,7 +34,7 @@ def note_search(notes):
             if ratio == 100 and len(j) == len(searchstring):
                 return(note)
             else:
-                return f"No such note"
+                return f"No such notes"
 
        
 
@@ -46,7 +46,11 @@ def note_remove(notes):
             ratio = int(difflib.SequenceMatcher(None, str(searchstring), str(j)).ratio()*100)
             if ratio == 100 and len(j) == len(searchstring):
                 notes.remove(note)
-    return(notes)      
+                return(notes) 
+            else:
+                return f"No such notes"
+
+         
 
 
 notes_list = [{
@@ -58,6 +62,6 @@ notes_list = [{
     {
         "note": "We need to cooperate by 1000 dollars and make a bribe for governor`s birthday next month",
         "tag" : ["next", "Birthday", 1000]}]
-print (note_search(notes_list))
+print (note_remove(notes_list))
 
 
