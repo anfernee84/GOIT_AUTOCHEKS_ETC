@@ -49,9 +49,7 @@ def note_remove(notes):
                 return(notes)
             return f"No such ID`s"
 
-        
-
-
+      
 
 notes_list = [{
         "id" : 1,
