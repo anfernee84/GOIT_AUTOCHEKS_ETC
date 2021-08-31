@@ -26,40 +26,43 @@ def tag_search(tags):
 
 
 def note_search(notes):
-
+    find_notes = []
     searchstring = input("Enter a name of your note: ")
     for note in notes:
         for i,j in note.items():
             ratio = int(difflib.SequenceMatcher(None, str(searchstring), str(j)).ratio()*100)
             if ratio == 100 and len(j) == len(searchstring):
-                return(note)
-            else:
-                return f"No such notes"
+                find_notes.append(note)
+    if len(find_notes) > 0:
+        return(find_notes)
+    return f"No such notes"
 
        
 
 def note_remove(notes):
 
-    searchstring = input("Enter a name of your note: ")
+    searchID = int(input("Enter a number ID of your note: "))
     for note in notes:
         for i,j in note.items():
-            ratio = int(difflib.SequenceMatcher(None, str(searchstring), str(j)).ratio()*100)
-            if ratio == 100 and len(j) == len(searchstring):
+            if searchID == j:
                 notes.remove(note)
-                return(notes) 
-            else:
-                return f"No such notes"
+                return(notes)
+            return f"No such notes"
 
-         
+        
+
 
 
 notes_list = [{
-        "note":"Information about Vasya`s debt for 150 hryvnias",
+        "id" : 1,
+        "note":"Next Tuesday is chief`s birthday",
         "tag": ["debt", "hryvnia", 150]},
     {
+        "id" : 2,
         "note":"Next Tuesday is chief`s birthday",
         "tag": ["birthday", "Tuesday", "Next"]},
-    {
+    {   
+        "id" : 3,
         "note": "We need to cooperate by 1000 dollars and make a bribe for governor`s birthday next month",
         "tag" : ["next", "Birthday", 1000]}]
 print (note_remove(notes_list))
