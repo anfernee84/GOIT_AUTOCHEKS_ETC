@@ -41,13 +41,13 @@ def note_search(notes):
 
 def note_remove(notes):
 
-    searchID = int(input("Enter a number ID of your note: "))
+    searchID = int(input("Enter an ID of note you want to delete: "))
     for note in notes:
         for i,j in note.items():
             if searchID == j:
                 notes.remove(note)
                 return(notes)
-            return f"No such notes"
+            return f"No such ID`s"
 
         
 
