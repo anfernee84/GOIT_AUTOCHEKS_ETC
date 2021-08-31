@@ -47,7 +47,7 @@ def note_remove(notes):
             if searchID == j:
                 notes.remove(note)
                 return(notes)
-            return f"No such ID`s"
+    return f"No such ID`s"
 
       
 
@@ -63,6 +63,7 @@ notes_list = [{
         "id" : 3,
         "note": "We need to cooperate by 1000 dollars and make a bribe for governor`s birthday next month",
         "tag" : ["next", "Birthday", 1000]}]
+        
 print (note_remove(notes_list))
 
 
