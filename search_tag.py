@@ -37,6 +37,21 @@ def note_search(notes):
         return(find_notes)
     return f"No such notes"
 
+
+def edit_note(notes):
+    searchID = int(input("Enter an ID of note you want to edit: "))
+    new_tag_list = []
+    for note in notes:
+        for i,j in note.items():
+            if searchID == j:
+                note["note"] = input("Input new information: ")
+                tag_string = input("Input new tags, separated with space (' '): ")
+                for word in tag_string.split(' '):
+                    new_tag_list.append(word)
+                note["tag"] = new_tag_list
+                return(notes)
+    return f"No such ID`s"
+
        
 
 def note_remove(notes):
@@ -64,6 +79,6 @@ notes_list = [{
         "note": "We need to cooperate by 1000 dollars and make a bribe for governor`s birthday next month",
         "tag" : ["next", "Birthday", 1000]}]
         
-print (note_remove(notes_list))
+print (edit_note(notes_list))
 
 
