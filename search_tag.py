@@ -14,7 +14,7 @@ def tag_search(tags):
         ratio = int(difflib.SequenceMatcher(None, str(user_tag), str(item)).ratio()*100)
         if ratio > 50:
             user_tag = item
-            for i in notes_list:
+            for i in tags:
                 if user_tag in i['tag']:
                     tag_list_of_dict.append ({ratio : i['note']})
     sort_list = []
@@ -65,16 +65,32 @@ def note_remove(notes):
                 return(notes)
     return f"No such ID`s"
 
+
+
+def note_search2(notes):
+    find_notes = []
+    searchstring = input("Enter a string of your note: ")
+    for note in notes:
+        for i,j in note.items():
+            ratio = int(difflib.SequenceMatcher(None, str(searchstring), str(j)).ratio()*100)
+            if ratio > 50:
+                find_notes.append(note)
+    if len(find_notes) > 0:
+        return(find_notes)
+    return f"No such notes"
+
+
       
 
 notes_list = [{
+
         "id" : 1,
         "title" : "Birthday",
         "note":"Next Tuesday is chief`s birthday",
         "tag": ["debt", "hryvnia", 150]},
     {
         "id" : 2,
-        "title" : "bullshit",
+        "title" : "birthday",
         "note":"Next Tuesday is chief`s birthday",
         "tag": ["birthday", "Tuesday", "Next"]},
     {   
@@ -83,6 +99,6 @@ notes_list = [{
         "note": "We need to cooperate by 1000 dollars and make a bribe for governor`s birthday next month",
         "tag" : ["next", "Birthday", 1000]}]
         
-print (note_search(notes_list))
+print (note_search2(notes_list))
 
 
