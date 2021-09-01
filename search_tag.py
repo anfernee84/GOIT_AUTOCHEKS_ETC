@@ -27,7 +27,7 @@ def tag_search(tags):
 
 def note_search(notes):
     find_notes = []
-    searchstring = input("Enter a name of your note: ")
+    searchstring = input("Enter a title of your note: ")
     for note in notes:
         for i,j in note.items():
             ratio = int(difflib.SequenceMatcher(None, str(searchstring), str(j)).ratio()*100)
@@ -39,18 +39,19 @@ def note_search(notes):
 
 
 def edit_note(notes):
-    searchID = int(input("Enter an ID of note you want to edit: "))
+    search_title = input("Enter a title of note you want to edit: ")
     new_tag_list = []
     for note in notes:
         for i,j in note.items():
-            if searchID == j:
+            if search_title == j:
+                note["title"] = input("Input new title: ")
                 note["note"] = input("Input new information: ")
                 tag_string = input("Input new tags, separated with space (' '): ")
                 for word in tag_string.split(' '):
                     new_tag_list.append(word)
                 note["tag"] = new_tag_list
                 return(notes)
-    return f"No such ID`s"
+    return f"No such titles"
 
        
 
@@ -68,17 +69,20 @@ def note_remove(notes):
 
 notes_list = [{
         "id" : 1,
+        "title" : "Birthday",
         "note":"Next Tuesday is chief`s birthday",
         "tag": ["debt", "hryvnia", 150]},
     {
         "id" : 2,
+        "title" : "bullshit",
         "note":"Next Tuesday is chief`s birthday",
         "tag": ["birthday", "Tuesday", "Next"]},
     {   
         "id" : 3,
+        "title" : "bribe",
         "note": "We need to cooperate by 1000 dollars and make a bribe for governor`s birthday next month",
         "tag" : ["next", "Birthday", 1000]}]
         
-print (edit_note(notes_list))
+print (note_search(notes_list))
 
 
