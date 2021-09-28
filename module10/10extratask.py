@@ -57,12 +57,224 @@
 #     main()
 
 
-from hero import *
+# from hero import *
 
-myhero1 = Hero("Vasya", 12, "urkagun")
-myhero2 = SuperHero("Onufriy", 14, "buhar", 5)
+# myhero1 = Hero("Vasya", 12, "urkagun")
+# myhero2 = SuperHero("Onufriy", 14, "buhar", 5)
 
-myhero1.show_hero()
-myhero2.show_hero()
-myhero2.makemagic()
-myhero2.show_hero()
+# myhero1.show_hero()
+# myhero2.show_hero()
+# myhero2.makemagic()
+# myhero2.show_hero()
+
+
+
+# class Meta(type):
+#     classes = []
+#     def __new__(cls, name, bases, attrs):
+#         cls.classes.append({"cls":cls, "name" : name, "number": len(cls.classes) })
+#         return type.__new__(cls, name, bases, attrs)
+
+# class User(metaclass = Meta):
+#     def __init__(self):
+#         print("Constructor")
+#         super().__init__()
+
+# class User2(metaclass = Meta):
+#     pass        
+
+
+# user = User()
+# print(Meta.classes)
+
+
+
+# class DeveloperMeta(type):
+#     def __new__(cls, name, bases, attrs):
+#         attrs["skill"] = "Python"
+#         attrs["city"] = None
+#         attrs["method1"] = DeveloperMeta.method1
+#         return type.__new__(cls,name,bases,attrs)
+#     def method1(cls):
+#         print("asd")
+
+
+
+# class Developer(metaclass = DeveloperMeta):
+#     pass
+
+# dev = Developer()
+# print(dev.skill)
+
+# dev.method1()
+
+# import abc
+
+# class DevOps(abc.ABC):
+
+#     @property
+#     @abc.abstractmethod
+    
+#     def skill(self):
+#         return skill
+
+# class PythonDeveloper(DevOps):
+#     skill = "Python"
+
+
+
+# dev = PythonDeveloper()
+# print(dev.skill)
+# print(dev.__dict__)
+
+
+# class NotInplemented(Exception):
+#     pass
+
+
+# class AbstractClassMeta(type):
+#     abstract_methods = []
+
+#     def __new__(cls, name, bases, attrs):
+#         #print (cls, name, bases, attrs )
+#         if not bases:
+#             for key,value in attrs.items():
+#                 if callable (value):
+#                     AbstractClassMeta.abstract_methods.append(key)
+
+#                 else:
+#                     for abstract_method in AbstractClassMeta.abstract_methods:
+#                         if abstract_method not in attrs:
+#                             raise NotImplemented (f"Method {abstract_method} is not implemented")
+
+
+#         return type.__new__(cls, name, bases, attrs)
+
+        
+    
+
+# class AbstractClass(metaclass = AbstractClassMeta):
+    
+#     def method(self):
+#         pass
+
+# class A(AbstractClass):
+#     pass
+
+
+
+
+user_info = {"name":"Alex", "last_name": "Pupkin", "nickname":"pupok"}
+models = {}
+class ModelMeta(type):
+    def __new__(cls,name,bases,attrs):
+        
+        obj = type.__new__(cls,name,bases,attrs)
+
+        models[name]  = obj
+        return obj
+
+    def __call__(cls,user_info):
+
+        for k, v in user_info.items():
+            if k in cls.__dict__:
+                setattr(cls, k, v)
+        return type.__call__(cls)
+        
+class Model(metaclass = ModelMeta):
+    pass
+
+
+class UsersPII(Model):
+    name = None
+    last_name = None
+    # def __init__(self, user_info):
+    #     pass
+
+users_pii = UsersPII(user_info)
+
+print(users_pii.last_name)
+
+
+from abc import ABC, abstractmethod
+
+class AbstractClass(ABC):
+    def parentmethod(self):
+        print (f"I`m your father")
+    @abstractmethod
+    def abstractfunction(self):
+        pass
+
+    @abstractmethod
+    def mathfunction(self):
+        pass
+
+class ChildMEthod(AbstractClass):
+    def abstractfunction(self):
+        print (f"I`m a child")
+    def mathfunction(self,x,y):
+        self.x = x
+        self.y = y
+        print(int(x)+int(y))
+        return self.x + self.y
+
+a = ChildMEthod()
+a.parentmethod()
+a.abstractfunction()
+
+print(a.mathfunction(2,6))
+
+
+ExampleClass = type("ExampleClass", (object,), {"class_var": "some_digit"})
+e = ExampleClass()
+print(e.__dir__)
+print(e.class_var)
+print(ExampleClass.__name__)
+print(ExampleClass.__dict__)
+
+
+def metafunc(name,bases,attrs):
+    print ("metafunc called with", name,bases,attrs)
+    attrs["somedata"] = 5
+    return type(name,bases,attrs)
+
+class Cls(metaclass = metafunc):
+    some = 2
+
+    def print_some(self):
+        print(self.some)
+
+print(Cls.some)
+print(Cls.somedata)
+print(Cls.__dict__)
+
+
+class MyMeta(type):
+
+    def __new__(cls,name,bases,attrs):
+        print(f"MyMeta new called with {cls},{name}, {bases}, {attrs}")
+        return type.__new__(cls,name,bases,attrs)
+    
+    def __init__(cls,name,bases,attrs):
+        print (f"MyMeta init attrs {cls},{name}, {bases}, {attrs}")
+
+class A(metaclass = MyMeta):
+    def __init__(self,data):
+        self.data = data
+ 
+class MyMeta(type):
+    def __new__(*args):
+        print(f'MyMeta __new__ called with {args}')
+        return type.__new__(*args)
+
+    def __init__(*args):
+        print(f'MyMeta __init__ called with {args}')
+
+
+class A(metaclass=MyMeta):
+    def __init__(self, data):
+        self.data = data
+
+
+
+
