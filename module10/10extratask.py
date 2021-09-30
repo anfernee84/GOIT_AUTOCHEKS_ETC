@@ -254,6 +254,19 @@ class MyMeta(type):
     def __new__(cls,name,bases,attrs):
         print(f"MyMeta new called with {cls},{name}, {bases}, {attrs}")
         return type.__new__(cls,name,bases,attrs)
+
+    def __call__(cls, name, bases, attrs):
+        print("call called")
+        print("class:", cls)
+        print("name: ", name)
+        print("bases:", bases)
+        print("attrs: ", attrs)
+        instance
+
+
+
+
+
     
     def __init__(cls,name,bases,attrs):
         print (f"MyMeta init attrs {cls},{name}, {bases}, {attrs}")
@@ -261,19 +274,7 @@ class MyMeta(type):
 class A(metaclass = MyMeta):
     def __init__(self,data):
         self.data = data
- 
-class MyMeta(type):
-    def __new__(*args):
-        print(f'MyMeta __new__ called with {args}')
-        return type.__new__(*args)
 
-    def __init__(*args):
-        print(f'MyMeta __init__ called with {args}')
-
-
-class A(metaclass=MyMeta):
-    def __init__(self, data):
-        self.data = data
 
 
 
