@@ -251,29 +251,88 @@ print(Cls.__dict__)
 
 class MyMeta(type):
 
-    def __new__(cls,name,bases,attrs):
-        print(f"MyMeta new called with {cls},{name}, {bases}, {attrs}")
-        return type.__new__(cls,name,bases,attrs)
+    # def __new__(cls,name,bases,attrs):
+    #     print(f"MyMeta new called with {cls},{name}, {bases}, {attrs}")
+    #     return type.__new__(cls,name,bases,attrs)
 
-    def __call__(cls, name, bases, attrs):
+    def __call__(cls, *args):
         print("call called")
         print("class:", cls)
-        print("name: ", name)
-        print("bases:", bases)
-        print("attrs: ", attrs)
-        instance
+        # print("name: ", name)
+        # print("bases:", bases)
+        print("attrs: ", *args)
+        instance = object.__new__(cls)
+        instance.__init__( *args)
+        return instance
 
 
 
 
 
     
-    def __init__(cls,name,bases,attrs):
-        print (f"MyMeta init attrs {cls},{name}, {bases}, {attrs}")
+    # def __init__(cls,name,bases,attrs):
+    #     print (f"MyMeta init attrs {cls},{name}, {bases}, {attrs}")
 
 class A(metaclass = MyMeta):
     def __init__(self,data):
         self.data = data
+        print(f"i`m a A method __init__")
+    def printd(self):
+        print(self.data)
+
+a = A("arun")
+
+
+from abc import abstractmethod, ABCMeta
+
+class BaseMeta(metaclass = ABCMeta):
+    
+    @abstractmethod
+    def func1(self):
+        print ("i`m a func1")
+    @abstractmethod
+    def func2(self):
+        print ("I`m a func2")
+
+
+class Child(BaseMeta):
+    
+    # def func1(self):
+
+    #     print("func1")
+
+    # def func2(self):
+    #     print("func2")
+    def func1(self):
+        return super().func1()
+
+    def func2(self):
+        return super().func2()
+    
+
+
+c = Child()
+
+c.func1()
+c.func2()
+
+
+def class_decor(clas):
+    class Inner(clas):
+        def print_hello(self):
+            print("hello")
+    return Inner
+
+@class_decor
+class Z:
+    pass
+
+z = Z()
+z.print_hello()
+print(z)
+
+
+    
 
 
 
