@@ -332,7 +332,38 @@ z.print_hello()
 print(z)
 
 
+class Decorator:
+    def __init__(self, maxval, minval):
+        self.maxval = maxval
+        self.minval = minval
     
+    def __call__(self,func):
+        def inner (*args):
+            for arg in args:
+                if arg < self.minval or arg > self.maxval:
+                    raise ValueError
+            return (func, *args)
+        return inner
+
+@Decorator(0,5)
+def foo(x,y):
+    pass
+
+@Decorator(-5,6)
+def bar(g,y):
+    pass
+
+def dump_closure(f):
+   if hasattr(f, "__closure__") and f.__closure__ is not None:
+       print("- Dumping function closure for {}:".format(f.__name__))
+       for i, c in enumerate(f.__closure__):
+           print("-- cell {}  = {}".format(i, c.cell_contents))
+   else:
+       print(" - {} has no closure!".format(f.__name__))
+
+dump_closure(classmethod)
+
+
 
 
 
