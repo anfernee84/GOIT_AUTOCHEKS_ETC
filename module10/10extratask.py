@@ -369,3 +369,115 @@ dump_closure(classmethod)
 
 
 
+
+
+
+import functools
+def functionmetric(func):
+    @functools.wraps(func)
+    def wrapper(*args,**kw):
+        print("Hi!")
+        return func(*args,**kw)
+    return wrapper
+
+@functionmetric
+def printfunc():
+    return f"Hello little bastards"
+
+a = printfunc()
+print(a)
+
+
+
+
+
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args,**kw):
+            print ("%s %s():" % (type(text), func.__name__))
+            return func(*args,**kw)
+        return wrapper
+    return decorator
+
+
+@log((1,2,3,4,5,))
+def hello():
+    print ("Hello, big bastards")
+
+
+d = hello()
+
+class Person:
+    def __init__(self, age, gender, race):
+        self.__age = age
+        self.__gender = gender
+        self.__race = race
+
+    def get_age(self):
+        return (self.__age)
+    
+    def get_race(self):
+        return self.__race
+    
+
+    @property
+    def gender(self):
+        return self.__gender
+
+    @property
+    def set_age(self, age):
+        self.__age = age
+        return self.__age
+    @property
+    def set_race(self,race):
+        self.__race = race
+        return self.__race
+
+    @gender.setter
+    def set_gender(self, gender):
+        if not isinstance (gender, str):
+            raise Exception ("it`s not a string")
+        elif gender == "male" or gender == "female":
+            self.__gender = gender
+
+    @set_age.setter
+    def set_age(self, age):
+        self.__age = age
+
+    @set_race.setter
+    def set_race(self, race):
+        self.__race = race
+
+
+
+
+liming = Person(40, "male", "chinesse")
+print(liming.get_age())
+print(liming.gender)
+liming.set_gender = "female"
+liming.set_age = 56
+print(liming.gender)
+print(liming.get_race())
+print(liming.get_age())
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+
