@@ -1,8 +1,9 @@
+from abc import abstractclassmethod
 import difflib
 import json
 import pickle
 from fuzzywuzzy import fuzz
-
+from abstract_class import aAddressBook, aBirthday, aShowAll, aNotes, aHelp
 from address_book import AddressBook, Record
 from notes import NoteRecord
 from sort_folder import sort_folder_command
@@ -65,7 +66,9 @@ def main():
                             working_note['tag'] = sep_command[2:title_index]
 
             elif sep_command[0] == "show" and sep_command[1] == "contact":
-                address_book.find_contact(sep_command[2].title())
+                # address_book.find_contact(sep_command[2].title())
+                usrDict = address_book.usrDict ()
+                aAddressBook.show_info (usrDict, sep_command[2].title())
 
             elif sep_command[0] == "show" and sep_command[1] == "birthday":
                 print(address_book.days_to_birthday(int(sep_command[2])))
@@ -74,11 +77,7 @@ def main():
                 address_book.__str__()
 
             elif sep_command[0] == "show" and sep_command[1] == "notes":
-                print(f"Total notes: {NoteRecord.counter}")
-                if not note_list:
-                    print("List with notes is empty!")
-                for note in note_list:
-                    print(f"Title: {note['title']}\nNote: {note['note']}\nTags: {note['tag']}\n")
+                aNotes.show_info (note_list)
 
             elif sep_command[0] == "edit" and sep_command[1] == "contact":
                 address_book.edit_contact(sep_command[2].title())
@@ -137,7 +136,9 @@ def main():
                             print("Does not exist! Try again!\n")
 
             elif command == "help" or command == "reference":
-                help_command()
+                # help_command()
+                aHelp.show_info ()
+                # aHelp.show_info ()
 
             elif command in ["good bye", "close", "exit"]:
                 with open('data_test.bin', 'wb') as f:
@@ -167,61 +168,61 @@ def main():
             print("Wrong input! Check entered information!")
 
 
-def help_command():
-    """
-    =====================================================
-                 CLI - Command Line Interface
-                       Personal Assistant
-    =====================================================
-    Personal Assistant works with Address book, write,
-    save Notes and sort files in folders.
-    Personal Assistant has a commands:
-    1. "add contact" - for add name, address, contact
-    information (phone, e-mail) and birthday to Address
-    book write "add contact" then details and enter it;
-    2. "add note" - for add note write "add note" then
-    your note after write "-title" and title for your note
-    and enter it; additionally in this option you can add
-    a tag to your note for this after title write "-tag"
-    and tag and enter it;
-    3. "add tag" - for add tag to notes write "add tag"
-    then write tag after write "-title" and title of note
-    which you wont to add tag and enter it;
-    4. "show contact" - for get all contact information
-    write "show contact" then name and enter it;
-    5. "show birthday" - for show a list of contacts who
-    have a birthday after a specified number of days from
-    the current date write "show birthday" then number of
-    days and enter it;
-    6. "show all" - for show all contacts in Address book
-    write "show all" and enter command;
-    7. "show notes" - for show all notes write "show notes"
-    and enter it;
-    8. "edit contact" - for edit contact information write
-    "edit contact" then name and enter it;
-    9. "edit note" - for edit note write "edit note" then
-    title after write "-edit" and new text and enter it;
-    10. "search tags" - for search and sort notes by tags
-    write "search tags" then tag and enter it;
-    11. "search note" - for search note in notes write
-    "search note" then few words from note and enter it;
-    12. "sort folders" - for sort files in folders write
-    "sort folders" then path to folder and enter it;
-    13. "delete contact" - for delete name and contact
-    information in Address book write "delete contact" then
-    name and enter it;
-    14. "delete note" - for delete note write "delete note"
-    then title and enter it;
-    15. "help", "reference" - for ask reference how to
-    use Personal Assistant write "help" or "reference"
-    and enter the command;
-    16. "close", "exit", "good bye" - for finish work with
-    Personal Assistant, write one of "close", "exit" or
-    "good bye" and enter command then you will exit from
-    Command Line Interface.
-    Pleasant use!
-    """
-    print(help_command.__doc__)
+# def help_command():
+#     """
+#     =====================================================
+#                  CLI - Command Line Interface
+#                        Personal Assistant
+#     =====================================================
+#     Personal Assistant works with Address book, write,
+#     save Notes and sort files in folders.
+#     Personal Assistant has a commands:
+#     1. "add contact" - for add name, address, contact
+#     information (phone, e-mail) and birthday to Address
+#     book write "add contact" then details and enter it;
+#     2. "add note" - for add note write "add note" then
+#     your note after write "-title" and title for your note
+#     and enter it; additionally in this option you can add
+#     a tag to your note for this after title write "-tag"
+#     and tag and enter it;
+#     3. "add tag" - for add tag to notes write "add tag"
+#     then write tag after write "-title" and title of note
+#     which you wont to add tag and enter it;
+#     4. "show contact" - for get all contact information
+#     write "show contact" then name and enter it;
+#     5. "show birthday" - for show a list of contacts who
+#     have a birthday after a specified number of days from
+#     the current date write "show birthday" then number of
+#     days and enter it;
+#     6. "show all" - for show all contacts in Address book
+#     write "show all" and enter command;
+#     7. "show notes" - for show all notes write "show notes"
+#     and enter it;
+#     8. "edit contact" - for edit contact information write
+#     "edit contact" then name and enter it;
+#     9. "edit note" - for edit note write "edit note" then
+#     title after write "-edit" and new text and enter it;
+#     10. "search tags" - for search and sort notes by tags
+#     write "search tags" then tag and enter it;
+#     11. "search note" - for search note in notes write
+#     "search note" then few words from note and enter it;
+#     12. "sort folders" - for sort files in folders write
+#     "sort folders" then path to folder and enter it;
+#     13. "delete contact" - for delete name and contact
+#     information in Address book write "delete contact" then
+#     name and enter it;
+#     14. "delete note" - for delete note write "delete note"
+#     then title and enter it;
+#     15. "help", "reference" - for ask reference how to
+#     use Personal Assistant write "help" or "reference"
+#     and enter the command;
+#     16. "close", "exit", "good bye" - for finish work with
+#     Personal Assistant, write one of "close", "exit" or
+#     "good bye" and enter command then you will exit from
+#     Command Line Interface.
+#     Pleasant use!
+#     """
+#     print(help_command.__doc__)
 
 
 if __name__ == "__main__":

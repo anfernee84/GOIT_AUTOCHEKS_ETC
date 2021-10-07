@@ -113,6 +113,8 @@ class Record:
 
 
 class AddressBook(UserDict):
+    def usrDict (self):
+        return self.data
     def add_record(self, record):
         self.data[record.name.__str__()] = record
 
