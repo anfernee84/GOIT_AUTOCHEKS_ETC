@@ -462,6 +462,49 @@ print(liming.get_race())
 print(liming.get_age())
 
 
+from threading import Thread
+from time import sleep
+
+
+# class MyThread(Thread):
+#     def __init__(self, second_num):
+#         super().__init__()
+#         self.delay = second_num
+
+#     def run(self):
+#         sleep(self.delay)
+#         print("Wake up!")
+
+# t = MyThread(2)
+# t.start()
+# print ("Useful message")
+
+
+
+class UsefulThread():
+    def __init__(self,second_num):
+        self.delay = second_num
+    
+    def __call__(self):
+        sleep(self.delay)
+        print("Wake up!")
+
+t2 = UsefulThread(2)
+thread = Thread(target = t2)
+thread.start()
+print("Some stuff")
+
+
+def thread_fync(sleep_time):
+    sleep(sleep_time)
+    print("Wake UP")
+
+thread = Thread(target = thread_fync, args = (2,))
+thread.start()
+print("somestuff")
+
+
+
 
 
 
